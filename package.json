@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,14 @@
   "bugs": {
     "url": "https://github.com/RenanFachin/RS_IGNITE_find-a-friend-api/issues"
   },
-  "homepage": "https://github.com/RenanFachin/RS_IGNITE_find-a-friend-api#readme"
+  "homepage": "https://github.com/RenanFachin/RS_IGNITE_find-a-friend-api#readme",
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "fastify": "^4.17.0"
+  }
 }
