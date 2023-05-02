@@ -27,12 +27,37 @@ API desenvolvida para a adoção de animais, a FindAFriend API, utilizando SOLID
 ## Regras de negócio
   - [ ] Para listar os pets, obrigatoriamente precisamos informar a cidade
   - [ ] Uma ORG precisa ter um endereço e um número de WhatsApp
-  - [ ] Um pet deve estar ligado a uma ORG
+  - [x] Um pet deve estar ligado a uma ORG
   - [ ] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
   - [ ] Todos os filtros, além da cidade, são opcionais
   - [ ] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
 
 ## Instalação
+```sh
+# Faça o clone do repotório
+  git clone git@github.com:RenanFachin/RS_IGNITE_api-solid.git
+
+# Instalar as dependências do projeto
+  npm install
+
+# Rodar as migrations do projeto para criar o banco de dados
+  npx prisma migrate dev
+
+# Executando o projeto no ambiente de desenvolvimento
+  npm run dev
+```
+
+
+## Instalação do banco de dados
+```sh
+# Subindo o banco de dados com docker
+docker compose up -d
+```
+
+## Diagrama ERD
+<div align="center">
+    <img width="70%" alt="Diagrama ERD" src="./prisma/ERD.svg">
+</div>
 
 ## Rotas
 

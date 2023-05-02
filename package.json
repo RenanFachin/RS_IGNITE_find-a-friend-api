@@ -23,6 +23,7 @@
     "@rocketseat/eslint-config": "1.2.0",
     "@types/node": "^18.16.3",
     "eslint": "8.39.0",
+    "prisma-erd-generator": "1.5.4",
     "tsup": "^6.7.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4"

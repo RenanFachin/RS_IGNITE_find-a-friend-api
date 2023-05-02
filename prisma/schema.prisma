@@ -10,6 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 enum Age {
   FILHOTE
   ADULTO
@@ -50,6 +54,7 @@ model Organization {
   email           String   @unique
   password_hash   String
   address         String
+  city            String
   postal_code     String
   created_at      DateTime @default(now())
 
