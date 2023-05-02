@@ -33,22 +33,27 @@ model Pet {
   name        String
   description String?
   age         Age
-  eneryLevel  EnergyLevel
+  enery_level EnergyLevel
   size        Size
   created_at  DateTime    @default(now())
+
+  organization    Organization @relation(fields: [organization_id], references: [id])
+  organization_id String
 
   @@map("pets")
 }
 
 model Organization {
-  id             String   @id @default(uuid())
-  name           String   @unique
-  resposibleName String
-  email          String   @unique
-  password       String
-  address        String
-  postalCode     String
-  created_at     DateTime @default(now())
+  id              String   @id @default(uuid())
+  name            String   @unique
+  resposible_name String
+  email           String   @unique
+  password_hash   String
+  address         String
+  postal_code     String
+  created_at      DateTime @default(now())
+
+  Pets Pet[]
 
   @@map("organizations")
 }
