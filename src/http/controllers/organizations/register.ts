@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
-import { hash } from 'bcryptjs'
+import { RegisterUseCase } from '@/use-cases/register'
+import { PrismaOrganizationsRepository } from '@/repositories/prisma/prisma-organizations-repository'
 
 export async function register(
   request: FastifyRequest,
@@ -27,40 +27,24 @@ export async function register(
     postal_code,
   } = registerBodySchema.parse(request.body)
 
-  const password_hash = await hash(password, 6)
+  try {
+    // É preciso instânciar a classe e passar por parâmetro as depêndencias
+    const organizationRepository = new PrismaOrganizationsRepository()
+    const registerUseCase = new RegisterUseCase(organizationRepository)
 
-  const organizationWithSameEmailOrName = await prisma.organization.findFirst({
-    where: {
-      OR: [
-        {
-          email: {
-            equals: email,
-          },
-        },
-        {
-          name: {
-            equals: name,
-          },
-        },
-      ],
-    },
-  })
-
-  if (organizationWithSameEmailOrName) {
-    return response.status(409).send()
-  }
-
-  await prisma.organization.create({
-    data: {
+    // chamando o caso de uso e passando os params
+    await registerUseCase.execute({
       name,
       responsable_name,
       email,
-      password_hash,
+      password,
       address,
       city,
       postal_code,
-    },
-  })
+    })
+  } catch (err) {
+    return response.status(409).send()
+  }
 
   return response.status(201).send()
 }
