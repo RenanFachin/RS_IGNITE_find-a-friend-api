@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs'
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { OrganizationAlreadyExists } from './errors/organization-already-exists-error'
+import { Organization } from '@prisma/client'
 
 interface RegisterUseCaseParams {
   name: string
@@ -10,6 +11,10 @@ interface RegisterUseCaseParams {
   address: string
   city: string
   postal_code: string
+}
+
+interface OrganizationRegisterUseCaseResponse {
+  organization: Organization
 }
 
 // Dependency Inversion Principle
@@ -27,7 +32,7 @@ export class RegisterUseCase {
     address,
     city,
     postal_code,
-  }: RegisterUseCaseParams) {
+  }: RegisterUseCaseParams): Promise<OrganizationRegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
     const organizationWithSameEmailOrName =
@@ -38,7 +43,7 @@ export class RegisterUseCase {
     }
 
     // Passando os dados para a criação para o constructor
-    await this.organizationsRepository.create({
+    const organization = await this.organizationsRepository.create({
       name,
       responsable_name,
       email,
@@ -47,5 +52,9 @@ export class RegisterUseCase {
       city,
       postal_code,
     })
+
+    return {
+      organization,
+    }
   }
 }

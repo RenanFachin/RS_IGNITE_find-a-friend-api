@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui --api 9527"
   },
   "repository": {
     "type": "git",
@@ -23,11 +27,15 @@
     "@rocketseat/eslint-config": "1.2.0",
     "@types/bcryptjs": "2.4.2",
     "@types/node": "^18.16.3",
+    "@vitest/coverage-c8": "0.30.1",
+    "@vitest/ui": "0.30.1",
     "eslint": "8.39.0",
     "prisma-erd-generator": "1.5.4",
     "tsup": "^6.7.0",
     "tsx": "^3.12.7",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vite-tsconfig-paths": "4.2.0",
+    "vitest": "0.30.1"
   },
   "dependencies": {
     "@prisma/client": "4.13.0",
