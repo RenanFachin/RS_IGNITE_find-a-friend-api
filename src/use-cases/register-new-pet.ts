@@ -22,8 +22,8 @@ interface RegisterNewPetUseCaseResponse {
 export class RegisterNewPetUseCase {
   // Classe pode usar construtor e receber as dependências como parâmetro
   constructor(
-    private petsRepository: PetsRepository,
     private organizationRepository: OrganizationsRepository,
+    private petsRepository: PetsRepository,
   ) {}
 
   async execute({
