@@ -75,5 +75,10 @@ POST /session
 POST /register/pet
 ```
 
+- Cadastrar um pet
+```bash
+GET /pet
+```
+
 ## Testes automatizados
 
