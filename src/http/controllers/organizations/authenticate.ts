@@ -1,6 +1,5 @@
-import { PrismaOrganizationsRepository } from '@/repositories/prisma/prisma-organizations-repository'
-import { AuthenticateUseCase } from '@/use-cases/authenticate'
 import { InvalidCredentials } from '@/use-cases/errors/invalid-credentials-erros'
+import { makeAuthenticateUseCase } from '@/use-cases/factories/make-authenticate-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -16,9 +15,7 @@ export async function authenticate(
   const { email, password } = authenticateBodySchema.parse(request.body)
 
   try {
-    // É preciso instânciar a classe e passar por parâmetro as depêndencias
-    const organizationRepository = new PrismaOrganizationsRepository()
-    const authenticateUseCase = new AuthenticateUseCase(organizationRepository)
+    const authenticateUseCase = makeAuthenticateUseCase()
 
     // chamando o caso de uso e passando os params
     await authenticateUseCase.execute({

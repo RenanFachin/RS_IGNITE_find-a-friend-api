@@ -1,8 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { RegisterUseCase } from '@/use-cases/register'
-import { PrismaOrganizationsRepository } from '@/repositories/prisma/prisma-organizations-repository'
 import { OrganizationAlreadyExists } from '@/use-cases/errors/organization-already-exists-error'
+import { makeRegisterUseCase } from '@/use-cases/factories/make-register-use-case'
 
 export async function register(
   request: FastifyRequest,
@@ -29,9 +28,7 @@ export async function register(
   } = registerBodySchema.parse(request.body)
 
   try {
-    // É preciso instânciar a classe e passar por parâmetro as depêndencias
-    const organizationRepository = new PrismaOrganizationsRepository()
-    const registerUseCase = new RegisterUseCase(organizationRepository)
+    const registerUseCase = makeRegisterUseCase()
 
     // chamando o caso de uso e passando os params
     await registerUseCase.execute({
