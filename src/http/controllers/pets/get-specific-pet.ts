@@ -6,11 +6,11 @@ export async function getSpecificPet(
   request: FastifyRequest,
   response: FastifyReply,
 ) {
-  const getSpecificPetQuerySchema = z.object({
+  const getSpecificPetParamsSchema = z.object({
     id: z.string(),
   })
 
-  const { id } = getSpecificPetQuerySchema.parse(request.query)
+  const { id } = getSpecificPetParamsSchema.parse(request.params)
 
   const getSpecificPet = makeGetSpecificPetUseCase()
 
