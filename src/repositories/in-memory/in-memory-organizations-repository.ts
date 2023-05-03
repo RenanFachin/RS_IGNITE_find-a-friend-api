@@ -4,6 +4,7 @@ import { OrganizationsRepository } from '../organizations-repository'
 export class InMemoryOrganizationsRepository
   // eslint-disable-next-line prettier/prettier
   implements OrganizationsRepository {
+
   public items: Organization[] = []
 
   async create(data: Prisma.OrganizationCreateInput) {
@@ -28,6 +29,16 @@ export class InMemoryOrganizationsRepository
     const organization = this.items.find(
       (item) => item.email === email || item.name === name,
     )
+
+    if (!organization) {
+      return null
+    }
+
+    return organization
+  }
+
+  async findByEmail(email: string) {
+    const organization = this.items.find((item) => item.email === email)
 
     if (!organization) {
       return null
