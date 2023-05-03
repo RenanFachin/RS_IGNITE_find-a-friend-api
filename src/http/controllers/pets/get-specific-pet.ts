@@ -18,7 +18,5 @@ export async function getSpecificPet(
     petId: id,
   })
 
-  console.log(pet)
-
   response.status(201).send({ pet })
 }

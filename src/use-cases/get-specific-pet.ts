@@ -1,6 +1,6 @@
 import { PetsRepository } from '@/repositories/pet-repository'
 import { Pet } from '@prisma/client'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { PetNotExistingInDatabaseError } from './errors/pet-not-existing-in-database-error'
 
 interface GetSpecificPetUseCaseRequest {
   petId: string
@@ -18,8 +18,10 @@ export class GetSpecificPetUseCase {
   }: GetSpecificPetUseCaseRequest): Promise<GetSpecificPetUseCaseResponse> {
     const pet = await this.petsRepository.findById(petId)
 
+    console.log(pet)
+
     if (!pet) {
-      throw new ResourceNotFoundError()
+      throw new PetNotExistingInDatabaseError()
     }
 
     return {
