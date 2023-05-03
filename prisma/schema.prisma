@@ -37,7 +37,7 @@ model Pet {
   name        String
   description String?
   age         Age
-  enery_level EnergyLevel
+  energy_level EnergyLevel
   size        Size
   created_at  DateTime    @default(now())
 
