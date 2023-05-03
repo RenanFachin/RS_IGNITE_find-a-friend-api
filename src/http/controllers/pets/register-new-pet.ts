@@ -1,4 +1,3 @@
-import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 import { makeRegisterNewPetUseCase } from '@/use-cases/factories/make-register-new-pet-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
@@ -19,28 +18,17 @@ export async function registerNewPet(
   const { name, description, age, energy_level, size, organization_id } =
     registerNewPetBodySchema.parse(request.body)
 
-  try {
-    const registerNewPetUseCase = makeRegisterNewPetUseCase()
+  const registerNewPetUseCase = makeRegisterNewPetUseCase()
 
-    // chamando o caso de uso e passando os params
-    await registerNewPetUseCase.execute({
-      name,
-      description,
-      age,
-      energy_level,
-      size,
-      organization_id,
-    })
-  } catch (err) {
-    if (err instanceof ResourceNotFoundError) {
-      return response.status(409).send({
-        message: err.message,
-      })
-    }
+  // chamando o caso de uso e passando os params
+  const { pet } = await registerNewPetUseCase.execute({
+    name,
+    description,
+    age,
+    energy_level,
+    size,
+    organization_id,
+  })
 
-    // Retornando um erro genérico
-    throw err
-  }
-
-  return response.status(201).send()
+  return response.status(201).send({ pet })
 }
