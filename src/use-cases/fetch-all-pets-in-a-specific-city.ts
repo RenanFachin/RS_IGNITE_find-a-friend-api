@@ -1,6 +1,7 @@
 import { OrganizationsRepository } from '@/repositories/organizations-repository'
 import { PetsRepository } from '@/repositories/pet-repository'
 import { Pet } from '@prisma/client'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface FetchAllPetsInASpecificCityUseCaseRequest {
   city: string
@@ -21,8 +22,8 @@ export class FetchAllPetsInASpecificCityUseCase {
   }: FetchAllPetsInASpecificCityUseCaseRequest): Promise<FetchAllPetsInASpecificCityUseCaseResponse> {
     const organizations = await this.organizationRepository.findPetsByCity(city)
 
-    if (!organizations) {
-      throw new Error()
+    if (organizations.length === 0) {
+      throw new ResourceNotFoundError()
     }
 
     const pets = await this.petsRepository.findManyByOrgs(organizations)
