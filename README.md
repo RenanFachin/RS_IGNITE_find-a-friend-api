@@ -19,7 +19,7 @@ API desenvolvida para a adoção de animais, a FindAFriend API, utilizando SOLID
 ## Regras da aplicação
   - [x] Deve ser possível cadastrar um pet
   - [x] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade
-  - [ ] Deve ser possível filtrar pets por suas características 
+  - [x] Deve ser possível filtrar pets por suas características 
   - [x] Deve ser possível visualizar detalhes de um pet para adoção
   - [x] Deve ser possível se cadastrar como uma ORG
   - [x] Deve ser possível realizar login como uma ORG
@@ -77,7 +77,17 @@ POST /register/pet
 
 - Buscar por um pet
 ```bash
-GET /pet
+GET /pet/:id
+```
+
+- Listar todos os pets de uma cidade específica
+```bash
+GET /searchByCity/:city
+```
+
+- Filtrar pet por característica e cidade
+```bash
+GET /search/:city
 ```
 
 ## Testes automatizados

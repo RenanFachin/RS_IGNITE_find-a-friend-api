@@ -52,4 +52,14 @@ export class PrismaOrganizationsRepository implements OrganizationsRepository {
 
     return organization
   }
+
+  async findPetsByCity(city: string) {
+    const organization = await prisma.organization.findMany({
+      where: {
+        city,
+      },
+    })
+
+    return organization
+  }
 }
