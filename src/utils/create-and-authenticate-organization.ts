@@ -9,7 +9,7 @@ export async function createAndAuthenticateOrganization(app: FastifyInstance) {
     email: 'funcionando4@email.com',
     password: '1234567',
     address: 'Rua dos testes',
-    city: 'Porto Alegre',
+    city: 'Canoas',
     postal_code: '92000000',
   })
 

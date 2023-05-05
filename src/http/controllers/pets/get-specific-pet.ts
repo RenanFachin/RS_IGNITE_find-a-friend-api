@@ -18,5 +18,5 @@ export async function getSpecificPet(
     petId: id,
   })
 
-  response.status(201).send({ pet })
+  response.status(200).send({ pet })
 }

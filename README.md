@@ -28,9 +28,8 @@ API desenvolvida para a adoção de animais, a FindAFriend API, utilizando SOLID
   - [x] Para listar os pets, obrigatoriamente precisamos informar a cidade
   - [x] Uma ORG precisa ter um endereço e um número de WhatsApp
   - [x] Um pet deve estar ligado a uma ORG
-  - [ ] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
+  - [x] O usuário que quer adotar, entrará em contato com a ORG via WhatsApp
   - [x] Todos os filtros, além da cidade, são opcionais
-  - [ ] Para uma ORG acessar a aplicação como admin, ela precisa estar logada
 
 ## Instalação
 ```sh
