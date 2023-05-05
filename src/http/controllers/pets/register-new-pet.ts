@@ -12,10 +12,11 @@ export async function registerNewPet(
     age: z.enum(['FILHOTE', 'ADULTO', 'SENIOR']),
     energy_level: z.enum(['CALM', 'PEACEFUL', 'FUSSY']),
     size: z.enum(['SMALL', 'MEDIUM', 'BIG']),
-    organization_id: z.string(),
   })
 
-  const { name, description, age, energy_level, size, organization_id } =
+  const organizationId = request.user.sub
+
+  const { name, description, age, energy_level, size } =
     registerNewPetBodySchema.parse(request.body)
 
   const registerNewPetUseCase = makeRegisterNewPetUseCase()
@@ -27,8 +28,10 @@ export async function registerNewPet(
     age,
     energy_level,
     size,
-    organization_id,
+    organization_id: organizationId,
   })
+
+  console.log(pet)
 
   return response.status(201).send({ pet })
 }

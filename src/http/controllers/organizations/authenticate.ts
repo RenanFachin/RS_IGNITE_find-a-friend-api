@@ -18,10 +18,21 @@ export async function authenticate(
     const authenticateUseCase = makeAuthenticateUseCase()
 
     // chamando o caso de uso e passando os params
-    await authenticateUseCase.execute({
+    const { organization } = await authenticateUseCase.execute({
       email,
       password,
     })
+
+    // jwt
+    const authToken = await response.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+        },
+      },
+    )
+    return response.status(200).send({ authToken })
   } catch (err) {
     if (err instanceof InvalidCredentials) {
       return response.status(400).send({
@@ -32,6 +43,4 @@ export async function authenticate(
     // Retornando um erro genérico
     throw err
   }
-
-  return response.status(200).send()
 }
