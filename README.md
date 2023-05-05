@@ -90,11 +90,17 @@ GET /searchByCity/:city
 GET /search/:city
 ```
 
-## Testes automatizados
+## Testes Unitários
 ```sh
 # Rodando testes unitários
 npm run test
 
 # Vendo o coverage de testes
 npm run test:coverage
+```
+
+## Testes e2e
+```sh
+# Rodando testes unitários
+npm run test:e2e
 ```
