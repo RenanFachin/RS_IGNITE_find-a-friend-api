@@ -1,6 +1,7 @@
 import { makeSearchPetsUseCase } from '@/use-cases/factories/make-search-pets-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
+import { PetNotExistingInDatabaseError } from '@/use-cases/errors/pet-not-existing-in-database-error'
 
 export async function searchPets(
   request: FastifyRequest,
@@ -19,16 +20,27 @@ export async function searchPets(
   const { city } = searchPetsParamsSchema.parse(request.params)
   const { age, energy_level, size } = searchPetsQuerySchema.parse(request.query)
 
-  const searchPetsUseCase = makeSearchPetsUseCase()
+  try {
+    const searchPetsUseCase = makeSearchPetsUseCase()
 
-  const { pets } = await searchPetsUseCase.execute({
-    city,
-    age: age ?? null,
-    energy_level: energy_level ?? null,
-    size: size ?? null,
-  })
+    const { pets } = await searchPetsUseCase.execute({
+      city,
+      age: age ?? null,
+      energy_level: energy_level ?? null,
+      size: size ?? null,
+    })
 
-  return response.status(200).send({
-    pets,
-  })
+    return response.status(200).send({
+      pets,
+    })
+  } catch (err) {
+    if (err instanceof PetNotExistingInDatabaseError) {
+      return response.status(409).send({
+        message: err.message,
+      })
+    }
+
+    // Retornando um erro genérico
+    throw err
+  }
 }
